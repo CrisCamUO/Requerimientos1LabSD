@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package servicios;
+option go_package = "/serviciosCancion";
+
+service serviciosCanciones {
+  rpc BuscarCancion(PeticionCancionDTO) returns (RespuestaCancionDTO) {}
+  rpc ObtenerDetalleCancion(IdCancion) returns (DetalleCancion) {}
+  rpc ListarGeneros(Vacio) returns (ListaGeneros) {}
+  rpc ListarCancionesPorGenero(IdGenero) returns (ListaCanciones) {}
+  rpc BuscarGenero(PeticionGeneroID) returns (RespuestaGeneroDTO) {}
+}
+
+// Mensajes existentes...
+message Vacio {}
+
+message Genero {
+  int32 id = 1;
+  string nombre = 2;
+}
+
+message ListaGeneros {
+  repeated Genero generos = 1;
+}
+
+// Agrega estos nuevos mensajes
+message PeticionGeneroID {
+  int32 id = 1;
+}
+
+message RespuestaGenerosDTO {
+  string mensaje = 1;
+  int32 codigo = 2;
+  repeated Genero objGeneros = 3;
+}
+
+message RespuestaGeneroDTO {
+  string mensaje = 1;
+  int32 codigo = 2;
+  Genero genero = 3;
+}
+
+
+message IdGenero {
+  int32 id = 1;
+}
+
+message Cancion {
+  int32 id = 1;
+  string titulo = 2;
+  string artista = 3;
+  int32 anio_lanzamiento = 4;
+  string duracion = 5;
+  Genero obj_genero = 6;
+}
+
+message ListaCanciones {
+  repeated Cancion canciones = 1;
+}
+
+message IdCancion {
+  int32 id = 1;
+}
+
+message PeticionCancionDTO {
+  string titulo = 1;
+}
+
+message RespuestaCancionDTO {
+  string mensaje = 1;
+  int32 codigo = 2;
+  Cancion obj_cancion = 3;
+}
+
+message DetalleCancion {
+  Cancion cancion = 1;
+}
