@@ -9,7 +9,7 @@ import (
 	"github.com/faiface/beep"
 	"github.com/faiface/beep/mp3"
 	"github.com/faiface/beep/speaker"
-	pb "servidor.local/grpc-servidor/serviciosStreaming" 
+	pb "servidor.local/grpc-servidor/serviciosStreaming"
 )
 
 func DecodificarReproducir(reader io.Reader, canalSincronizacion chan struct{}) {
@@ -42,11 +42,11 @@ func RecibirCancion(stream pb.AudioService_EnviarCancionMedianteStreamClient, wr
 		fmt.Printf("\n Fragmento #%d recibido (%d bytes) reproduciendo...", noFragmento, len(fragmento.Data))
 
 		if _, err := writer.Write(fragmento.Data); err != nil {
-			log.Printf("Error escribiendo en pipe: %v", err)
-			break
+			return
 		}
+
 	}
 	// Esperar hasta que termine la reproducción
 	<-canalSincronizacion
-	fmt.Println("Reproducción finalizada.")
+
 }
