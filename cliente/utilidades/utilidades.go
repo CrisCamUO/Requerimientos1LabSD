@@ -31,7 +31,7 @@ func RecibirCancion(stream pb.AudioService_EnviarCancionMedianteStreamClient, wr
 	for {
 		fragmento, err := stream.Recv()
 		if err == io.EOF {
-			fmt.Println("Canción recibida completa.")
+			fmt.Println("Cancion recibida completa.")
 			writer.Close()
 			break
 		}
